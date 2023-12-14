@@ -5,7 +5,7 @@
     "uid": "deals_summary_card",
     "location": "crm.record.tab",
     "module": {
-      "file": "DealsSummary.jsx"
+      "file": "DealsSummary.tsx"
     },
     "objectTypes": [
       {
