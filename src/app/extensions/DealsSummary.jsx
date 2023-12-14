@@ -6,6 +6,7 @@ import {
   StatisticsItem,
 } from '@hubspot/ui-extensions';
 import { hubspot } from '@hubspot/ui-extensions';
+import { calculateTotalAmount } from './utils';
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(() => (
@@ -21,12 +22,12 @@ const DealsSummary = () => {
 
   useEffect(() => {
     // Request statistics data from serverless function
-    hubspot.serverless('get-data', {
+    hubspot.serverless('get-deals', {
       propertiesToSend: ['hs_object_id'],
     })
-      .then((response) => {
-        setDealsCount(response.dealsCount);
-        setTotalAmount(response.totalAmount);
+      .then((deals) => {
+        setDealsCount(deals.length);
+        setTotalAmount(calculateTotalAmount(deals));
       })
       .catch((error) => {
         setErrorMessage(error.message);
