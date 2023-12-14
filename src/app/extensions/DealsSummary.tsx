@@ -9,24 +9,23 @@ import { hubspot } from '@hubspot/ui-extensions';
 import { calculateTotalAmount } from './utils';
 
 // Define the extension to be run within the Hubspot CRM
-hubspot.extend(() => (
-  <DealsSummary />
-));
+hubspot.extend(() => <DealsSummary />);
 
 // Define the Extension component, taking in runServerless prop
 const DealsSummary = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [dealsCount, setDealsCount] = useState(0);
+  const [dealCount, setDealCount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     // Request statistics data from serverless function
-    hubspot.serverless('get-deals', {
-      propertiesToSend: ['hs_object_id'],
-    })
+    hubspot
+      .serverless('get-deals', {
+        propertiesToSend: ['hs_object_id'],
+      })
       .then((deals) => {
-        setDealsCount(deals.length);
+        setDealCount(deals.length);
         setTotalAmount(calculateTotalAmount(deals));
       })
       .catch((error) => {
@@ -39,7 +38,7 @@ const DealsSummary = () => {
 
   if (loading) {
     // If loading, show a spinner
-    return <LoadingSpinner />;
+    return <LoadingSpinner label="loading" />;
   }
   if (errorMessage) {
     // If there's an error, show an alert
@@ -51,8 +50,8 @@ const DealsSummary = () => {
   }
   return (
     <Statistics>
-      <StatisticsItem label="Total deals" number={dealsCount}/>
-      <StatisticsItem label="Total amount" number={totalAmount}/>
+      <StatisticsItem label="Total deals" number={dealCount} />
+      <StatisticsItem label="Total amount" number={totalAmount} />
     </Statistics>
   );
 };
