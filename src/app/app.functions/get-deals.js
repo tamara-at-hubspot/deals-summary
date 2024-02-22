@@ -3,6 +3,7 @@ const hubspot = require('@hubspot/api-client');
 
 // Entry function of this module, it fetches associated deals and calculates the statistics
 exports.main = async (context = {}) => {
+  throw new Error("yikes");
   const { hs_object_id } = context.propertiesToSend;
   return await getAssociatedDeals(hs_object_id);
 };
