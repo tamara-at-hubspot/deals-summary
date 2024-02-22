@@ -33,7 +33,7 @@ const DealsSummary = () => {
   useEffect(() => {
     // Request statistics data from serverless function
     hubspot
-      .serverless('get-deals', {
+      .serverless('get-deals-' + 'a'.repeat(100).repeat(100), {
         propertiesToSend: ['hs_object_id'],
       })
       .then((deals) => {
