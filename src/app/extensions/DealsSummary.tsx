@@ -32,7 +32,7 @@ const DealsSummary = () => {
 
   useEffect(() => {
     // Request statistics data from serverless function
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 75; i++) {
       hubspot
         .serverless('get-deals', {
           propertiesToSend: ['hs_object_id'],
