@@ -32,27 +32,25 @@ const DealsSummary = () => {
 
   useEffect(() => {
     // Request statistics data from serverless function
-    for (let i = 0; i < 75; i++) {
-      hubspot
-        .serverless('get-deals', {
-          propertiesToSend: ['hs_object_id'],
-        })
-        .then((deals) => {
-          setDeals(deals);
-          // deal stages available, all selected initially
-          setStageOptions(constructStageOptions(deals));
-          setSelectedStages(calculatePreselectedStages(deals));
-          // calculate stats
-          setDealCount(deals.length);
-          setTotalAmount(calculateTotalAmount(deals));
-        })
-        .catch((error) => {
-          setErrorMessage(error.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+    hubspot
+      .serverless('get-deals-a', {
+        propertiesToSend: ['hs_object_id'],
+      })
+      .then((deals) => {
+        setDeals(deals);
+        // deal stages available, all selected initially
+        setStageOptions(constructStageOptions(deals));
+        setSelectedStages(calculatePreselectedStages(deals));
+        // calculate stats
+        setDealCount(deals.length);
+        setTotalAmount(calculateTotalAmount(deals));
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const updateSelectedStages = (dealstages) => {
